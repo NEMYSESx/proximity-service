@@ -62,7 +62,7 @@ function App() {
   useEffect(() => {
     const handleOrientation = (event: DeviceOrientationEvent) => {
       if (event.alpha !== null) {
-        setArrowDirection(event.alpha);
+        setArrowDirection(360 - event.alpha);
       } else {
         console.log("second");
         console.log(event);
