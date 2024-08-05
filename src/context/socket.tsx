@@ -28,7 +28,7 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
   const [_orientation, _setOrientation] = useState<string[]>([]);
 
   useEffect(() => {
-    const _socket = io("http://localhost:8000");
+    const _socket = io("wss://proximity-service-bk.onrender.com");
     setSocket(_socket);
 
     _socket.on("connect", () => {
