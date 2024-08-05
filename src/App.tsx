@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { DivIcon } from "leaflet";
 import "./App.css";
 import "leaflet/dist/leaflet.css";
+import { useSocket } from "./context/socket";
 
 interface Location {
   latitude: number;
@@ -34,6 +35,8 @@ function App() {
     latitude: 51.505,
     longitude: -0.09,
   });
+  const { _location, sendLocation, sendOrientation, _orientation } =
+    useSocket();
   const [arrowDirection, setArrowDirection] = useState<number>(0);
   const [orientationSupported, setOrientationSupported] =
     useState<boolean>(true);
@@ -45,6 +48,9 @@ function App() {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         });
+        const _lat = position.coords.latitude;
+        const _long = position.coords.longitude;
+        sendLocation(_lat.toString(), _long.toString());
       },
       (error) => console.log(error),
       {
@@ -62,11 +68,10 @@ function App() {
   useEffect(() => {
     const handleOrientation = (event: DeviceOrientationEvent) => {
       if (event.alpha !== null) {
-        setArrowDirection(360 - event.alpha);
+        const alpha = 360 - event.alpha;
+        setArrowDirection(alpha);
+        sendOrientation(alpha.toString());
       } else {
-        console.log("second");
-        console.log(event);
-        console.log(window.isSecureContext);
         setOrientationSupported(false);
       }
     };
@@ -74,7 +79,6 @@ function App() {
     if (window.DeviceOrientationEvent) {
       window.addEventListener("deviceorientation", handleOrientation);
     } else {
-      console.log("first");
       setOrientationSupported(false);
     }
 
@@ -105,6 +109,20 @@ function App() {
           icon={createCustomIcon(arrowDirection)}
         ></Marker>
         <Circle center={[location.latitude, location.longitude]} radius={10} />
+        {_location.map((value, key) => {
+          const lat = parseFloat(value.lat);
+          const long = parseFloat(value.long);
+          const orientation = _orientation[key]
+            ? parseFloat(_orientation[key])
+            : 0;
+          return (
+            <Marker
+              key={key}
+              position={[lat, long]}
+              icon={createCustomIcon(orientation)}
+            ></Marker>
+          );
+        })}
       </MapContainer>
     </div>
   );
