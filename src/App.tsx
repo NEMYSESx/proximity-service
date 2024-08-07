@@ -1,7 +1,7 @@
+import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, useMap, Marker, Circle } from "react-leaflet";
-import img from "/location-arrow.svg";
-import { useState, useEffect } from "react";
 import { DivIcon } from "leaflet";
+import img from "/location-arrow.svg";
 import "./App.css";
 import "leaflet/dist/leaflet.css";
 import { useSocket } from "./context/socket";
@@ -44,26 +44,18 @@ function App() {
   useEffect(() => {
     const watchID = navigator.geolocation.watchPosition(
       (position) => {
-        setLocation({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-        const _lat = position.coords.latitude;
-        const _long = position.coords.longitude;
-        sendLocation(_lat.toString(), _long.toString());
+        const { latitude, longitude } = position.coords;
+        setLocation({ latitude, longitude });
+        sendLocation(latitude.toString(), longitude.toString());
       },
       (error) => console.log(error),
-      {
-        enableHighAccuracy: true,
-        timeout: 200,
-        maximumAge: 10000,
-      }
+      { enableHighAccuracy: true, timeout: 2000, maximumAge: 10000 }
     );
 
     return () => {
       navigator.geolocation.clearWatch(watchID);
     };
-  }, []);
+  }, [sendLocation]);
 
   useEffect(() => {
     const handleOrientation = (event: DeviceOrientationEvent) => {
@@ -85,7 +77,7 @@ function App() {
     return () => {
       window.removeEventListener("deviceorientation", handleOrientation);
     };
-  }, []);
+  }, [sendOrientation]);
 
   return (
     <div>
@@ -107,20 +99,20 @@ function App() {
         <Marker
           position={[location.latitude, location.longitude]}
           icon={createCustomIcon(arrowDirection)}
-        ></Marker>
+        />
         <Circle center={[location.latitude, location.longitude]} radius={10} />
-        {_location.map((value, key) => {
+        {_location.map((value, index) => {
           const lat = parseFloat(value.lat);
           const long = parseFloat(value.long);
-          const orientation = _orientation[key]
-            ? parseFloat(_orientation[key])
+          const orientation = _orientation[index]
+            ? parseFloat(_orientation[index])
             : 0;
           return (
             <Marker
-              key={key}
+              key={index}
               position={[lat, long]}
               icon={createCustomIcon(orientation)}
-            ></Marker>
+            />
           );
         })}
       </MapContainer>
