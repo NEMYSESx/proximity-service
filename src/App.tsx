@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { MapContainer, TileLayer, useMap, Marker, Circle } from "react-leaflet";
 import { DivIcon } from "leaflet";
 import img from "/location-arrow.svg";
