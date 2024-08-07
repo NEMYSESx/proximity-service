@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, useMap, Marker, Circle } from "react-leaflet";
 import { DivIcon } from "leaflet";
 import img from "/location-arrow.svg";
@@ -35,8 +35,12 @@ function App() {
     latitude: 51.505,
     longitude: -0.09,
   });
-  const { _location, sendLocation, sendOrientation, _orientation } =
-    useSocket();
+  const {
+    _location = [],
+    sendLocation,
+    sendOrientation,
+    _orientation = [],
+  } = useSocket();
   const [arrowDirection, setArrowDirection] = useState<number>(0);
   const [orientationSupported, setOrientationSupported] =
     useState<boolean>(true);
@@ -48,7 +52,10 @@ function App() {
         setLocation({ latitude, longitude });
         sendLocation(latitude.toString(), longitude.toString());
       },
-      (error) => console.log(error),
+      (error) => {
+        console.log(error);
+        // Optionally, handle the error or notify the user
+      },
       { enableHighAccuracy: true, timeout: 2000, maximumAge: 10000 }
     );
 
@@ -88,7 +95,7 @@ function App() {
       )}
       <MapContainer
         center={[location.latitude, location.longitude]}
-        zoom={20}
+        zoom={15}
         className="h-screen"
       >
         <TileLayer

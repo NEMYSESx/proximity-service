@@ -66,7 +66,6 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
     };
   }, []);
 
-  setTimeout(() => {}, 2000);
   const sendLocation = useCallback(
     (lat: string, long: string) => {
       console.log(
@@ -76,7 +75,7 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
         isConnected
       );
       if (socket && isConnected) {
-        console.log("sending the location to backend");
+        console.log("Sending the location to backend");
         socket.emit("sendLocation", { lat, long });
       } else {
         console.log("Socket is not connected");
