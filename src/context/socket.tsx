@@ -30,7 +30,9 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
 
   useEffect(() => {
     console.log("Initializing socket connection...");
-    const _socket = io("http://localhost:8000");
+    const _socket = io(
+      "https://proximity-service-bk-production.up.railway.app"
+    );
 
     setSocket(_socket);
 
@@ -64,6 +66,7 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
     };
   }, []);
 
+  setTimeout(() => {}, 2000);
   const sendLocation = useCallback(
     (lat: string, long: string) => {
       console.log(

@@ -110,7 +110,7 @@ function App() {
           return (
             <Marker
               key={index}
-              position={[lat, long]}
+              position={[lat + Math.random() * 10, long + Math.random() * 10]}
               icon={createCustomIcon(orientation)}
             />
           );
