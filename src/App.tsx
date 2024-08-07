@@ -35,12 +35,8 @@ function App() {
     latitude: 51.505,
     longitude: -0.09,
   });
-  const {
-    _location = [],
-    sendLocation,
-    sendOrientation,
-    _orientation = [],
-  } = useSocket();
+  const { _location, sendLocation, sendOrientation, _orientation } =
+    useSocket();
   const [arrowDirection, setArrowDirection] = useState<number>(0);
   const [orientationSupported, setOrientationSupported] =
     useState<boolean>(true);
@@ -52,10 +48,7 @@ function App() {
         setLocation({ latitude, longitude });
         sendLocation(latitude.toString(), longitude.toString());
       },
-      (error) => {
-        console.log(error);
-        // Optionally, handle the error or notify the user
-      },
+      (error) => console.log(error),
       { enableHighAccuracy: true, timeout: 2000, maximumAge: 10000 }
     );
 
@@ -95,7 +88,7 @@ function App() {
       )}
       <MapContainer
         center={[location.latitude, location.longitude]}
-        zoom={15}
+        zoom={15} // Adjust zoom level as needed
         className="h-screen"
       >
         <TileLayer

@@ -45,14 +45,17 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
       console.error("Connection Error: ", error);
     });
 
-    _socket.on("getLocation", (data: { lat: string; long: string }[]) => {
-      console.log("Received location data from backend:", data);
-      _setLocation(data);
-    });
+    _socket.on(
+      "getLocation",
+      (data: { [key: string]: { lat: string; long: string } }) => {
+        console.log("Received location data from backend:", data);
+        _setLocation(Object.values(data));
+      }
+    );
 
-    _socket.on("getOrientation", (data: { alpha: string }[]) => {
+    _socket.on("getOrientation", (data: { [key: string]: string }) => {
       console.log("Received orientation data:", data);
-      _setOrientation(data.map((user) => user.alpha));
+      _setOrientation(Object.values(data));
     });
 
     _socket.on("disconnect", () => {
@@ -75,7 +78,6 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
         isConnected
       );
       if (socket && isConnected) {
-        console.log("Sending the location to backend");
         socket.emit("sendLocation", { lat, long });
       } else {
         console.log("Socket is not connected");
