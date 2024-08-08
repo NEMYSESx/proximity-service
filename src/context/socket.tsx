@@ -35,8 +35,9 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
       {
         reconnection: true,
         reconnectionAttempts: Infinity,
-        reconnectionDelay: 1000,
-        reconnectionDelayMax: 5000,
+        reconnectionDelay: 500,
+        reconnectionDelayMax: 2000,
+        timeout: 20000,
       }
     );
 
