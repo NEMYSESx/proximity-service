@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
-import { MapContainer, TileLayer, useMap, Marker, Circle } from "react-leaflet";
-import { DivIcon } from "leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  useMap,
+  Marker,
+  Circle,
+  Polyline,
+} from "react-leaflet";
+import { DivIcon, LatLngExpression } from "leaflet";
 import img from "/location-arrow.svg";
 import "./App.css";
 import "leaflet/dist/leaflet.css";
@@ -9,6 +16,10 @@ import { useSocket } from "./context/socket";
 interface Location {
   latitude: number;
   longitude: number;
+}
+
+interface DistancePath {
+  points: { lat: number; lon: number }[];
 }
 
 const createCustomIcon = (direction: number) => {
@@ -35,7 +46,7 @@ function App() {
     latitude: 51.505,
     longitude: -0.09,
   });
-  const { _location, sendLocation, sendOrientation, _orientation } =
+  const { _location, sendLocation, sendOrientation, _orientation, _distances } =
     useSocket();
   const [arrowDirection, setArrowDirection] = useState<number>(0);
   const [orientationSupported, setOrientationSupported] =
@@ -79,6 +90,16 @@ function App() {
     };
   }, [sendOrientation]);
 
+  const convertDistancesToPolyline = (distances: DistancePath[]) => {
+    if (!distances) return [];
+
+    return distances.map((path) =>
+      path.points.map((point) => [point.lat, point.lon] as LatLngExpression)
+    );
+  };
+
+  const polylines = convertDistancesToPolyline(_distances);
+
   return (
     <div>
       {!orientationSupported && (
@@ -88,7 +109,7 @@ function App() {
       )}
       <MapContainer
         center={[location.latitude, location.longitude]}
-        zoom={15} // Adjust zoom level as needed
+        zoom={15}
         className="h-screen"
       >
         <TileLayer
@@ -118,6 +139,15 @@ function App() {
             />
           );
         })}
+
+        {polylines.map(
+          (
+            points: LatLngExpression[] | LatLngExpression[][],
+            index: number
+          ) => (
+            <Polyline key={index} positions={points} color="blue" />
+          )
+        )}
       </MapContainer>
     </div>
   );

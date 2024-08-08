@@ -4,12 +4,29 @@ import { io, Socket } from "socket.io-client";
 interface SocketProviderProps {
   children: React.ReactNode;
 }
+interface DistancePath {
+  points: { lat: number; lon: number }[];
+}
+
+interface BackendPoint {
+  lat: string;
+  lon: string;
+}
+
+interface BackendPath {
+  points: BackendPoint[];
+}
+
+interface BackendDistances {
+  paths: BackendPath[];
+}
 
 interface SocketContextProps {
   sendLocation: (lat: string, long: string) => void;
   sendOrientation: (alpha: string) => void;
   _location: { lat: string; long: string }[];
   _orientation: string[];
+  _distances: DistancePath[];
 }
 
 const SocketContext = React.createContext<SocketContextProps | null>(null);
@@ -27,6 +44,7 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
     []
   );
   const [_orientation, _setOrientation] = useState<string[]>([]);
+  const [_distances, _setDistances] = useState<DistancePath[]>([]);
 
   useEffect(() => {
     console.log("Initializing socket connection...");
@@ -59,6 +77,17 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
         _setLocation(Object.values(data));
       }
     );
+
+    _socket.on("getDistances", (data: BackendDistances) => {
+      console.log("Received distances from backend", data);
+      const parsedDistances = data.paths.map((path) => ({
+        points: path.points.map((point) => ({
+          lat: parseFloat(point.lat),
+          lon: parseFloat(point.lon),
+        })),
+      }));
+      _setDistances(parsedDistances);
+    });
 
     _socket.on("getOrientation", (data: { [key: string]: string }) => {
       console.log("Received orientation data:", data);
@@ -112,7 +141,13 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
 
   return (
     <SocketContext.Provider
-      value={{ sendLocation, sendOrientation, _location, _orientation }}
+      value={{
+        sendLocation,
+        sendOrientation,
+        _location,
+        _orientation,
+        _distances,
+      }}
     >
       {children}
     </SocketContext.Provider>
