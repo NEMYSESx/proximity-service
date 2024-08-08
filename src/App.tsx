@@ -104,6 +104,9 @@ function App() {
         {_location.map((value, index) => {
           const lat = parseFloat(value.lat);
           const long = parseFloat(value.long);
+          if (lat === location.latitude && long === location.longitude) {
+            return null;
+          }
           const orientation = _orientation[index]
             ? parseFloat(_orientation[index])
             : 0;
