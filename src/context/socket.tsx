@@ -31,7 +31,13 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
   useEffect(() => {
     console.log("Initializing socket connection...");
     const _socket = io(
-      "https://proximity-service-bk-production.up.railway.app"
+      "https://proximity-service-bk-production.up.railway.app",
+      {
+        reconnection: true,
+        reconnectionAttempts: Infinity,
+        reconnectionDelay: 1000,
+        reconnectionDelayMax: 5000,
+      }
     );
 
     setSocket(_socket);
