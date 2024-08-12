@@ -1,4 +1,5 @@
 import { Location, MarkerData } from "../types/location";
+import Routing from "./Routing";
 
 const DataCard = ({
   isUser,
@@ -13,6 +14,13 @@ const DataCard = ({
   myLocation?: Location;
   otherLocation?: MarkerData;
 }) => {
+  const handleRoute = () => {
+    if (myLocation && otherLocation) {
+      return <Routing myLocation={myLocation} otherLocation={otherLocation} />;
+    }
+    console.error("Locations are not available for routing.");
+  };
+
   return (
     <div className="bg-white shadow-lg rounded-lg p-4 mb-4">
       {isUser ? (
@@ -53,8 +61,8 @@ const DataCard = ({
             </li>
           </ul>
           <button
-            className="border border-black text-white bg-black p-1 rounded-lg mt-2 "
-            // onClick={handleRoute}
+            className="border border-black text-white bg-black p-1 rounded-lg mt-2"
+            onClick={handleRoute}
           >
             Route
           </button>

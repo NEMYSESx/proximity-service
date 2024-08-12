@@ -2,30 +2,18 @@ import { useEffect, useState } from "react";
 import { Polyline, useMap } from "react-leaflet";
 import polyline from "@mapbox/polyline";
 import "leaflet/dist/leaflet.css";
+import { SideBarProps } from "../types/location";
 
-interface Location {
-  latitude: number;
-  longitude: number;
-}
-
-interface RoutingProps {
-  currentLocation: Location;
-  destination: Location;
-}
-
-const Routing = ({ currentLocation, destination }: RoutingProps) => {
+const Routing = ({ myLocation, otherLocation }: SideBarProps) => {
   const [route, setRoute] = useState<[number, number][]>([]);
   const map = useMap();
 
   useEffect(() => {
     const fetchRoute = async () => {
       const profile = "driving";
-      if (currentLocation && destination) {
-        const coordinateString = `${currentLocation.longitude},${currentLocation.latitude};${destination.longitude},${destination.latitude}`;
-
-        // Create the URL for the route API
+      if (myLocation && otherLocation) {
+        const coordinateString = `${myLocation.longitude},${myLocation.latitude};${otherLocation.longitude},${otherLocation.latitude}`;
         const url = `https://router.project-osrm.org/route/v1/${profile}/${coordinateString}?overview=full`;
-
         console.log("Request URL:", url);
 
         try {
@@ -46,7 +34,7 @@ const Routing = ({ currentLocation, destination }: RoutingProps) => {
     };
 
     fetchRoute();
-  }, [currentLocation, destination]);
+  }, [myLocation, otherLocation]);
 
   useEffect(() => {
     if (route.length > 0) {
