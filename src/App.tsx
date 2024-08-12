@@ -83,6 +83,7 @@ function App() {
     );
   });
   console.log("Filterd", filteredLocations);
+  console.log("myLocation", location);
 
   const createCustomIcon = (direction: number) => {
     return new DivIcon({
@@ -94,7 +95,7 @@ function App() {
 
   return (
     <>
-      <SideBar myLocation={location} />
+      <SideBar />
       <div className="flex flex-row h-screen max-w-[1180px] right-0">
         <div className="flex-grow">
           <MapContainer
