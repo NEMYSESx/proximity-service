@@ -1,5 +1,4 @@
 import { Location, MarkerData } from "../types/location";
-import Routing from "./Routing";
 
 const DataCard = ({
   isUser,
@@ -7,20 +6,15 @@ const DataCard = ({
   address,
   myLocation,
   otherLocation,
+  handleRoute,
 }: {
   isUser: boolean;
   title: string;
   address?: string;
   myLocation?: Location;
   otherLocation?: MarkerData;
+  handleRoute: () => void;
 }) => {
-  const handleRoute = () => {
-    if (myLocation && otherLocation) {
-      return <Routing myLocation={myLocation} otherLocation={otherLocation} />;
-    }
-    console.error("Locations are not available for routing.");
-  };
-
   return (
     <div className="bg-white shadow-lg rounded-lg p-4 mb-4">
       {isUser ? (

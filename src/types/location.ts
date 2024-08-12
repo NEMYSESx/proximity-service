@@ -7,7 +7,10 @@ export interface MarkerData extends Location {
   socket_id: string;
 }
 
-export interface SideBarProps {
+export interface RoutingProps {
   myLocation?: Location;
   otherLocation?: MarkerData;
+}
+export interface SideBarProps extends RoutingProps {
+  handleRoute: () => void;
 }

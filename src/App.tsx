@@ -9,6 +9,7 @@ import img from "/location-arrow.svg";
 import "leaflet/dist/leaflet.css";
 import SideBar from "./components/SideBar";
 import { Icon } from "leaflet";
+import Routing from "./components/Routing";
 
 function App() {
   const { _location, sendLocation, sendOrientation, _orientation } =
@@ -24,6 +25,7 @@ function App() {
     socket_id: "3dfvfd",
   });
   const [markerClicked, setMarkerClicked] = useState<boolean>(false);
+  const [showRouting, setShowRouting] = useState<boolean>(false);
 
   function UpdateMapCenter({ location }: { location: Location }) {
     const map = useMap();
@@ -125,9 +127,17 @@ function App() {
     setMarkerClicked(true);
   };
 
+  const handleRoute = () => {
+    setShowRouting(true);
+  };
+
   return (
     <>
-      <SideBar myLocation={location} otherLocation={markerData} />
+      <SideBar
+        myLocation={location}
+        otherLocation={markerData}
+        handleRoute={handleRoute}
+      />
       <div className="flex flex-row h-screen max-w-[1180px] right-0">
         <div className="flex-grow">
           <MapContainer
@@ -150,6 +160,9 @@ function App() {
               center={[location.latitude, location.longitude]}
               radius={10}
             />
+            {showRouting ? (
+              <Routing myLocation={location} otherLocation={markerData} />
+            ) : null}
 
             {filteredLocations.map((value, index) => {
               const lat = parseFloat(value.lat);
