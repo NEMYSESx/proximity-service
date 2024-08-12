@@ -1,0 +1,7 @@
+.custom-icon {
+  background: none !important;
+  border: none !important;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 1000;
+}
