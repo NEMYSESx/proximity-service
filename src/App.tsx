@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { useSocket } from "./context/Socket";
 import "./App.css";
-import { Location } from "./types/location";
+import { Location, MarkerData } from "./types/location";
 import { debounce } from "lodash";
 import { MapContainer, TileLayer, useMap, Marker, Circle } from "react-leaflet";
 import { DivIcon } from "leaflet";
 import img from "/location-arrow.svg";
 import "leaflet/dist/leaflet.css";
 import SideBar from "./components/SideBar";
+import { Icon } from "leaflet";
 
 function App() {
   const { _location, sendLocation, sendOrientation, _orientation } =
@@ -17,6 +18,12 @@ function App() {
     longitude: -0.09,
   });
   const [arrowDirection, setArrowDirection] = useState<number>(0);
+  const [markerData, setMarkerData] = useState<MarkerData>({
+    latitude: 3423,
+    longitude: 3232,
+    socket_id: "3dfvfd",
+  });
+  const [markerClicked, setMarkerClicked] = useState<boolean>(false);
 
   function UpdateMapCenter({ location }: { location: Location }) {
     const map = useMap();
@@ -93,9 +100,34 @@ function App() {
     });
   };
 
+  const defaultIcon = new Icon({
+    iconUrl:
+      "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowUrl:
+      "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+    shadowSize: [41, 41],
+    className: "",
+  });
+
+  const handleMarkerClick = ({
+    lat,
+    long,
+    socket_id,
+  }: {
+    lat: number;
+    long: number;
+    socket_id: string;
+  }) => {
+    setMarkerData({ latitude: lat, longitude: long, socket_id });
+    setMarkerClicked(true);
+  };
+
   return (
     <>
-      <SideBar />
+      <SideBar myLocation={location} otherLocation={markerData} />
       <div className="flex flex-row h-screen max-w-[1180px] right-0">
         <div className="flex-grow">
           <MapContainer
@@ -125,12 +157,31 @@ function App() {
               const orientation = _orientation[index]
                 ? parseFloat(_orientation[index])
                 : 0;
-              return (
+
+              return markerClicked ? (
                 <Marker
                   key={index}
                   position={[lat, long]}
                   icon={createCustomIcon(orientation)}
                 />
+              ) : (
+                <Marker
+                  key={index}
+                  position={[lat, long]}
+                  eventHandlers={{
+                    click: () => {
+                      const socket_id = Object.keys(_location)[index];
+                      console.log("Clicked marker socket_id:", socket_id);
+
+                      handleMarkerClick({
+                        lat,
+                        long,
+                        socket_id,
+                      });
+                    },
+                  }}
+                  icon={defaultIcon}
+                ></Marker>
               );
             })}
           </MapContainer>

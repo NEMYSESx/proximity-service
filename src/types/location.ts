@@ -3,7 +3,11 @@ export interface Location {
   longitude: number;
 }
 
+export interface MarkerData extends Location {
+  socket_id: string;
+}
+
 export interface SideBarProps {
-  myLocation: Location;
-  otherLocation: Location;
+  myLocation?: Location;
+  otherLocation?: MarkerData;
 }
