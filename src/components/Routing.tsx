@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import { Polyline, useMap } from "react-leaflet";
 import polyline from "@mapbox/polyline";
 import "leaflet/dist/leaflet.css";
-import { SideBarProps } from "../types/location";
+import { RoutingProps } from "../types/location";
 
-const Routing = ({ myLocation, otherLocation }: SideBarProps) => {
+const Routing = ({ myLocation, otherLocation }: RoutingProps) => {
   const [route, setRoute] = useState<[number, number][]>([]);
   const map = useMap();
-
   useEffect(() => {
     const fetchRoute = async () => {
       const profile = "driving";

@@ -3,7 +3,7 @@ import DataCard from "./DataCard";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const SideBar = ({ myLocation, otherLocation }: SideBarProps) => {
+const SideBar = ({ myLocation, otherLocation, handleRoute }: SideBarProps) => {
   console.log(myLocation);
   console.log(otherLocation);
 
@@ -35,11 +35,13 @@ const SideBar = ({ myLocation, otherLocation }: SideBarProps) => {
         title="My Details"
         address={address}
         myLocation={myLocation}
+        handleRoute={handleRoute}
       />
       <DataCard
         isUser={false}
         title="User Details"
         otherLocation={otherLocation}
+        handleRoute={handleRoute}
       />
     </div>
   );
