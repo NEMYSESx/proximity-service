@@ -94,7 +94,7 @@ function App() {
 
   return (
     <>
-      <SideBar myLocation={location} otherLocation={} />
+      <SideBar myLocation={location} />
       <div className="flex flex-row h-screen max-w-[1180px] right-0">
         <div className="flex-grow">
           <MapContainer
