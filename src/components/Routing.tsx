@@ -29,6 +29,8 @@ const Routing = ({ myLocation, otherLocation }: RoutingProps) => {
         } catch (error) {
           console.error("Error fetching route:", error);
         }
+      } else {
+        setRoute([]);
       }
     };
 
