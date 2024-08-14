@@ -10,7 +10,7 @@ function App() {
       element: <DashBoardPage />,
     },
     {
-      path: "map/:mapId",
+      path: "/map",
       element: <MapsPage />,
     },
   ]);
