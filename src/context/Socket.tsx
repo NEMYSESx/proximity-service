@@ -27,6 +27,7 @@ interface SocketContextProps {
   _location: { [key: string]: { lat: string; long: string } };
   _orientation: string[];
   _distances: DistancePath[];
+  mySocketId: string;
 }
 
 const SocketContext = React.createContext<SocketContextProps | null>(null);
@@ -45,6 +46,7 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
   }>({});
   const [_orientation, _setOrientation] = useState<string[]>([]);
   const [_distances, _setDistances] = useState<DistancePath[]>([]);
+  const [mySocketId, setMySocketId] = useState<string>("");
 
   useEffect(() => {
     console.log("Initializing socket connection...");
@@ -65,6 +67,9 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
     _socket.on("connect", () => {
       console.log("Socket connected", _socket.id);
       setIsConnected(true);
+      if (_socket.id) {
+        setMySocketId(_socket.id);
+      }
     });
 
     _socket.on("connect_error", (error) => {
@@ -149,6 +154,7 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
         _location,
         _orientation,
         _distances,
+        mySocketId,
       }}
     >
       {children}
