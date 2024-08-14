@@ -1,9 +1,5 @@
 import "./App.css";
-import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DashBoardPage from "./pages/DashBoardPage";
 import MapsPage from "./pages/MapsPage";
 import { useUser } from "@clerk/clerk-react";
