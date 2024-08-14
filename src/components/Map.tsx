@@ -13,7 +13,7 @@ import { Icon } from "leaflet";
 import { MapContainer, TileLayer, useMap, Marker, Circle } from "react-leaflet";
 import Routing from "./Routing";
 const Map = () => {
-  const { _location, sendLocation, sendOrientation, _orientation, mySocketId } =
+  const { _location, sendLocation, sendOrientation, _orientation } =
     useSocket();
   const [location, setLocation] = useState<Location>({
     latitude: 51.505,
@@ -85,13 +85,15 @@ const Map = () => {
     const orientation = _orientation[index]
       ? parseFloat(_orientation[index])
       : 0;
-    const socketId = Object.keys(_location)[index];
+    // const socketId = Object.keys(_location)[index];
 
     return !(
-      socketId === mySocketId &&
-      lat === location.latitude &&
-      long === location.longitude &&
-      orientation === arrowDirection
+      // socketId === mySocketId &&
+      (
+        lat === location.latitude &&
+        long === location.longitude &&
+        orientation === arrowDirection
+      )
     );
   });
   console.log("Filterd", filteredLocations);
