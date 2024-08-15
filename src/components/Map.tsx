@@ -94,7 +94,7 @@ const Map = () => {
   //     orientation === arrowDirection
   //   );
   // });
-  // console.log("Filterd", filteredLocations);
+  console.log("Filterd", _location);
   console.log("myLocation", location);
 
   const createCustomIcon = (direction: number) => {
