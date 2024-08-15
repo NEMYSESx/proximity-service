@@ -86,7 +86,7 @@ const Map = () => {
     //   ? parseFloat(_orientation[index])
     //   : 0;
     const socketId = Object.keys(_location)[index];
-
+    console.log(value);
     return !(socketId === mySocketId);
   });
   console.log("Filterd", filteredLocations);
