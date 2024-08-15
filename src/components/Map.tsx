@@ -13,7 +13,7 @@ import { Icon } from "leaflet";
 import { MapContainer, TileLayer, useMap, Marker, Circle } from "react-leaflet";
 import Routing from "./Routing";
 const Map = () => {
-  const { _location, sendLocation, sendOrientation, _orientation, mySocketId } =
+  const { _location, sendLocation, sendOrientation, _orientation } =
     useSocket();
   const [location, setLocation] = useState<Location>({
     latitude: 51.505,
@@ -79,22 +79,22 @@ const Map = () => {
     };
   }, [sendOrientation]);
 
-  const filteredLocations = Object.values(_location).filter((value, index) => {
-    const lat = parseFloat(value.lat);
-    const long = parseFloat(value.long);
-    const orientation = _orientation[index]
-      ? parseFloat(_orientation[index])
-      : 0;
-    const socketId = Object.keys(_location)[index];
+  // const filteredLocations = Object.values(_location).filter((value, index) => {
+  //   const lat = parseFloat(value.lat);
+  //   const long = parseFloat(value.long);
+  //   const orientation = _orientation[index]
+  //     ? parseFloat(_orientation[index])
+  //     : 0;
+  //   const socketId = Object.keys(_location)[index];
 
-    return !(
-      socketId === mySocketId &&
-      lat === location.latitude &&
-      long === location.longitude &&
-      orientation === arrowDirection
-    );
-  });
-  console.log("Filterd", filteredLocations);
+  //   return !(
+  //     socketId === mySocketId &&
+  //     lat === location.latitude &&
+  //     long === location.longitude &&
+  //     orientation === arrowDirection
+  //   );
+  // });
+  // console.log("Filterd", filteredLocations);
   console.log("myLocation", location);
 
   const createCustomIcon = (direction: number) => {
@@ -157,7 +157,7 @@ const Map = () => {
           <Routing myLocation={location} otherLocation={markerData} />
         ) : null}
 
-        {filteredLocations.map((value, index) => {
+        {Object.values(_location).map((value, index) => {
           const lat = parseFloat(value.lat);
           const long = parseFloat(value.long);
           const orientation = _orientation[index]
