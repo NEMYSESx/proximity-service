@@ -87,11 +87,7 @@ const Map = () => {
       : 0;
     const socketId = Object.keys(_location)[index];
 
-    return !(
-      (socketId === mySocketId && lat === location.latitude) ||
-      long === location.longitude ||
-      orientation === arrowDirection
-    );
+    return !(socketId === mySocketId && lat === location.latitude);
   });
   console.log("Filterd", filteredLocations);
   console.log("myLocation", location);
