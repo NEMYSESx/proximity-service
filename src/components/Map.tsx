@@ -79,17 +79,17 @@ const Map = () => {
     };
   }, [sendOrientation]);
 
-  const filteredLocations = Object.values(_location).filter((value, index) => {
-    // const lat = parseFloat(value.lat);
-    // const long = parseFloat(value.long);
-    // const orientation = _orientation[index]
-    //   ? parseFloat(_orientation[index])
-    //   : 0;
-    const socketId = Object.keys(_location)[index];
-    console.log(value);
-    return !(socketId === mySocketId);
-  });
-  console.log("Filterd", filteredLocations);
+  // const filteredLocations = Object.values(_location).filter((value, index) => {
+  //   // const lat = parseFloat(value.lat);
+  //   // const long = parseFloat(value.long);
+  //   // const orientation = _orientation[index]
+  //   //   ? parseFloat(_orientation[index])
+  //   //   : 0;
+  //   const socketId = Object.keys(_location)[index];
+  //   console.log(value);
+  //   return !(socketId === mySocketId);
+  // });
+  // console.log("Filterd", filteredLocations);
   console.log("myLocation", location);
 
   const createCustomIcon = (direction: number) => {
@@ -152,7 +152,7 @@ const Map = () => {
           <Routing myLocation={location} otherLocation={markerData} />
         ) : null}
 
-        {filteredLocations.map((value, index) => {
+        {Object.values(_location).map((value, index) => {
           const lat = parseFloat(value.lat);
           const long = parseFloat(value.long);
           const orientation = _orientation[index]
