@@ -13,7 +13,7 @@ import { Icon } from "leaflet";
 import { MapContainer, TileLayer, useMap, Marker, Circle } from "react-leaflet";
 import Routing from "./Routing";
 const Map = () => {
-  const { _location, sendLocation, sendOrientation, _orientation, mySocketId } =
+  const { _location, sendLocation, sendOrientation, _orientation } =
     useSocket();
   const [location, setLocation] = useState<Location>({
     latitude: 51.505,
