@@ -80,19 +80,14 @@ const Map = () => {
   }, [sendOrientation]);
 
   const filteredLocations = Object.values(_location).filter((value, index) => {
-    const lat = parseFloat(value.lat);
-    const long = parseFloat(value.long);
-    const orientation = _orientation[index]
-      ? parseFloat(_orientation[index])
-      : 0;
+    // const lat = parseFloat(value.lat);
+    // const long = parseFloat(value.long);
+    // const orientation = _orientation[index]
+    //   ? parseFloat(_orientation[index])
+    //   : 0;
     const socketId = Object.keys(_location)[index];
 
-    return (
-      socketId !== mySocketId ||
-      lat !== location.latitude ||
-      long !== location.longitude ||
-      orientation !== arrowDirection
-    );
+    return !(socketId === mySocketId);
   });
   console.log("Filterd", filteredLocations);
   console.log("myLocation", location);
