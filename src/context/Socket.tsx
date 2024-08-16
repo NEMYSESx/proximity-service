@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useContext, useEffect, useState, useCallback } from "react";
 import { io, Socket } from "socket.io-client";
 
@@ -114,6 +115,16 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
       _socket.on("disconnect", () => {
         console.log("Socket disconnected");
         setIsConnected(false);
+        const delData = async () => {
+          try {
+            axios.post("https://proximitydata.onrender.com/delData", {
+              socketId: _socket.id,
+            });
+          } catch (error) {
+            console.log("getting error del data", error);
+          }
+        };
+        delData();
       });
 
       return () => {
