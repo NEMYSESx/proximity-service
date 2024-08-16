@@ -21,6 +21,12 @@ import {
 import Routing from "./Routing";
 import { useUser } from "@clerk/clerk-react";
 import axios from "axios";
+
+interface OtherData {
+  id: number;
+  name: string;
+  socketId: string;
+}
 const Map = () => {
   const { user } = useUser();
   const name = user?.fullName;
@@ -31,7 +37,7 @@ const Map = () => {
     latitude: 51.505,
     longitude: -0.09,
   });
-  const [_otherName, _setOtherName] = useState("");
+  const [_otherName, _setOtherName] = useState<OtherData>();
   const [arrowDirection, setArrowDirection] = useState<number>(0);
   const [markerData, setMarkerData] = useState<MarkerData>({
     latitude: 3423,
@@ -250,7 +256,7 @@ const Map = () => {
           myLocation={location}
           otherLocation={markerData}
           handleRoute={handleRoute}
-          name={_otherName}
+          name={_otherName?.name}
         />
       </div>
     </div>
