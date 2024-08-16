@@ -130,11 +130,11 @@ const Map = () => {
   };
 
   return (
-    <div className="order-2 md:order-1 flex-grow">
+    <div className="relative flex-grow">
       <MapContainer
         center={[location.latitude, location.longitude]}
         zoom={15}
-        className="h-full"
+        className="h-full w-full z-0"
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -184,7 +184,7 @@ const Map = () => {
           );
         })}
       </MapContainer>
-      <div className="order-1 md:order-2 w-full md:w-auto">
+      <div className="absolute bottom-0 right-0 md:top-0 md:right-0 md:bottom-auto md:w-[355px] w-full md:h-auto z-50 bg-gray-800 bg-opacity-75">
         <SideBar
           myLocation={location}
           otherLocation={markerData}
