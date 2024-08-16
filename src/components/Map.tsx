@@ -80,7 +80,7 @@ const Map = () => {
       if (mapCenter && location.latitude && location.longitude) {
         map.setView([location.latitude, location.longitude], map.getZoom());
       }
-    }, [map, location.latitude, location.longitude]);
+    }, [map]);
 
     // Use map events to detect when the user moves the map
     useMapEvents({
