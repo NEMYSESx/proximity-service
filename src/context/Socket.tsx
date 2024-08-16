@@ -47,7 +47,6 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
   const [_orientation, _setOrientation] = useState<string[]>([]);
   const [_distances, _setDistances] = useState<DistancePath[]>([]);
   const [mySocketId, setMySocketId] = useState<string>("");
-  console.log(mySocketId);
 
   useEffect(() => {
     try {
@@ -129,12 +128,6 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
   const sendLocation = useCallback(
     (lat: string, long: string) => {
       try {
-        console.log(
-          "Attempting to send location to backend",
-          { lat, long },
-          "Connected:",
-          isConnected
-        );
         if (socket && isConnected) {
           socket.emit("sendLocation", { lat, long });
         } else {
@@ -150,12 +143,6 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
   const sendOrientation = useCallback(
     (alpha: string) => {
       try {
-        console.log(
-          "Attempting to send orientation",
-          alpha,
-          "Connected:",
-          isConnected
-        );
         if (socket && isConnected) {
           socket.emit("sendOrientation", alpha);
         } else {
