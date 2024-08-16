@@ -36,7 +36,7 @@ const Map = () => {
   const [showRouting, setShowRouting] = useState<boolean>(false);
   const [mapCenter, setMapCenter] = useState(true);
 
-  const UpdateMapCenter = () => {
+  const UpdateMapCenter = ({ location }: { location: Location }) => {
     const map = useMap();
     useEffect(() => {
       if (mapCenter && location.latitude && location.longitude) {
