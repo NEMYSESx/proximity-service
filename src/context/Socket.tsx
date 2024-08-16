@@ -53,7 +53,8 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
       console.log("Initializing socket connection...");
       const _socket = io(
         // "http://localhost:8000",
-        "https://proximity-service-bk-production.up.railway.app",
+        // "https://proximity-service-bk-production.up.railway.app",
+        "https://proximity-service-bk.onrender.com",
         {
           reconnection: true,
           reconnectionAttempts: Infinity,
