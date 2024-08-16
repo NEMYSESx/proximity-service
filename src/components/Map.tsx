@@ -49,7 +49,7 @@ const Map = () => {
           name: name,
           socketId: mySocketId,
         });
-        console.log("Data submitted successfully");
+        console.log("Data submitted successfully", name, mySocketId);
       } catch (error) {
         console.log("error putting the data", error);
       }
