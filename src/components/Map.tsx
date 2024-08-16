@@ -55,7 +55,7 @@ const Map = () => {
       }
     };
     putData();
-  }, []);
+  }, [mySocketId, name]);
 
   useEffect(() => {
     if (_markerClicked) {
