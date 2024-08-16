@@ -47,6 +47,7 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
   const [_orientation, _setOrientation] = useState<string[]>([]);
   const [_distances, _setDistances] = useState<DistancePath[]>([]);
   const [mySocketId, setMySocketId] = useState<string>("");
+  console.log(mySocketId);
 
   useEffect(() => {
     try {

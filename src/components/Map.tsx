@@ -26,6 +26,7 @@ const Map = () => {
   const name = user?.fullName;
   const { _location, sendLocation, sendOrientation, _orientation, mySocketId } =
     useSocket();
+  console.log("mpas", mySocketId);
   const [location, setLocation] = useState<Location>({
     latitude: 51.505,
     longitude: -0.09,
