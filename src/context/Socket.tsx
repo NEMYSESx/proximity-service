@@ -92,14 +92,12 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
 
       _socket.on("getDistances", (data: BackendDistances) => {
         try {
-          console.log("Received distances from backend", data);
           const parsedDistances = data.paths.map((path) => ({
             points: path.points.map((point) => ({
               lat: parseFloat(point.lat),
               lon: parseFloat(point.lon),
             })),
           }));
-          console.log("parse", parsedDistances);
           _setDistances(parsedDistances);
         } catch (error) {
           console.error("Error processing distances data:", error);
@@ -108,7 +106,6 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
 
       _socket.on("getOrientation", (data: { [key: string]: string }) => {
         try {
-          console.log("Received orientation data:", data);
           _setOrientation(Object.values(data));
         } catch (error) {
           console.error("Error processing orientation data:", error);
