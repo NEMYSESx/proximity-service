@@ -40,6 +40,7 @@ const Map = () => {
   const [markerClicked, setMarkerClicked] = useState<boolean>(false);
   const [showRouting, setShowRouting] = useState<boolean>(false);
   const [mapCenter, setMapCenter] = useState(true);
+  const [_markerClicked, _setMarkerClicked] = useState(false);
 
   useEffect(() => {
     const putData = async () => {
@@ -57,21 +58,23 @@ const Map = () => {
   }, []);
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await axios.post(
-          "https://proximitydata.onrender.com/getData",
-          {
-            socketId: markerData.socket_id,
-          }
-        );
-        _setOtherName(response.data);
-        console.log("got data successfully");
-      } catch (error) {
-        console.log("error putting the data", error);
-      }
-    };
-    getData();
+    if (_markerClicked) {
+      const getData = async () => {
+        try {
+          const response = await axios.post(
+            "https://proximitydata.onrender.com/getData",
+            {
+              socketId: markerData.socket_id,
+            }
+          );
+          _setOtherName(response.data);
+          console.log("got data successfully");
+        } catch (error) {
+          console.log("error putting the data", error);
+        }
+      };
+      getData();
+    }
   });
 
   const UpdateMapCenter = ({ location }: { location: Location }) => {
@@ -233,6 +236,7 @@ const Map = () => {
                     long,
                     socket_id,
                   });
+                  _setMarkerClicked(true);
                 },
               }}
               icon={defaultIcon}
