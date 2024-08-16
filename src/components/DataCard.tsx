@@ -36,22 +36,25 @@ const DataCard = ({
         </div>
       ) : (
         <div>
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">{title}</h3>
+          <h3 className="text-sm md:text-xl font-semibold text-gray-800 mb-2">
+            {title}
+          </h3>
           <ul className="text-gray-700 space-y-1">
             <li>
-              <span className="font-medium">UserId:</span>{" "}
+              <span className="text-sm md:font-medium">UserId:</span>{" "}
               {otherLocation?.socket_id ?? "N/A"}
             </li>
             <li>
-              <span className="font-medium">Latitude:</span>{" "}
+              <span className="text-sm md:font-medium">Latitude:</span>{" "}
               {otherLocation?.latitude ?? "N/A"}
             </li>
             <li>
-              <span className="font-medium">Longitude:</span>{" "}
+              <span className="text-sm md:font-medium">Longitude:</span>{" "}
               {otherLocation?.longitude ?? "N/A"}
             </li>
             <li>
-              <span className="font-medium">Address:</span> {address ?? "N/A"}
+              <span className="text-sm md:font-medium">Address:</span>{" "}
+              {address ?? "N/A"}
             </li>
           </ul>
           <button
