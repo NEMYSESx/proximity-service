@@ -12,7 +12,7 @@ const SideBar = ({ myLocation, otherLocation, handleRoute }: SideBarProps) => {
     otherLocation?.longitude
   );
   return (
-    <div className="fixed bottom-0 right-0 md:top-0 md:right-0 md:bottom-auto md:w-[355px] w-full md:h-auto z-50 bg-gray-800 bg-opacity-75 text-white shadow-lg p-4">
+    <div className="fixed bottom-0 right-0 md:top-0 md:right-0 md:bottom-auto md:w-[355px] w-full md:h-auto z-50 bg-gray-800 bg-opacity-75 text-white shadow-lg md:p-4 p-1">
       <DataCard
         isUser={true}
         title="My Details"
