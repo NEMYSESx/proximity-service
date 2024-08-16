@@ -30,11 +30,10 @@ const Map = () => {
 
   function UpdateMapCenter({ location }: { location: Location }) {
     const map = useMap();
-    useEffect(() => {
-      if (location.latitude && location.longitude) {
-        map.setView([location.latitude, location.longitude], map.getZoom());
-      }
-    }, []);
+
+    if (location.latitude && location.longitude) {
+      map.setView([location.latitude, location.longitude], map.getZoom());
+    }
 
     return null;
   }
