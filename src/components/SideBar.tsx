@@ -8,10 +8,7 @@ const SideBar = ({
   handleRoute,
   name,
 }: SideBarProps) => {
-  console.log(myLocation);
-  console.log(otherLocation);
   const myAddress = useAddress(myLocation?.latitude, myLocation?.longitude);
-  console.log("My address", myAddress);
   const otherAddress = useAddress(
     otherLocation?.latitude,
     otherLocation?.longitude

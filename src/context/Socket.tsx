@@ -82,7 +82,6 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
         "getLocation",
         (data: { [key: string]: { lat: string; long: string } }) => {
           try {
-            console.log("Received location data from backend:", data);
             _setLocation(data);
           } catch (error) {
             console.error("Error processing location data:", error);
