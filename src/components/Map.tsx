@@ -19,18 +19,18 @@ import {
   useMapEvents,
 } from "react-leaflet";
 import Routing from "./Routing";
-import { useUser } from "@clerk/clerk-react";
-import axios from "axios";
+// import { useUser } from "@clerk/clerk-react";
+// import axios from "axios";
 const Map = () => {
-  const { user } = useUser();
-  const name = user?.fullName;
+  // const { user } = useUser();
+  // const name = user?.fullName;
   const { _location, sendLocation, sendOrientation, _orientation, mySocketId } =
     useSocket();
   const [location, setLocation] = useState<Location>({
     latitude: 51.505,
     longitude: -0.09,
   });
-  const [_otherName, _setOtherName] = useState("");
+  // const [_otherName, _setOtherName] = useState("");
   const [arrowDirection, setArrowDirection] = useState<number>(0);
   const [markerData, setMarkerData] = useState<MarkerData>({
     latitude: 3423,
@@ -41,39 +41,41 @@ const Map = () => {
   const [showRouting, setShowRouting] = useState<boolean>(false);
   const [mapCenter, setMapCenter] = useState(true);
 
-  useEffect(() => {
-    const putData = async () => {
-      try {
-        await axios.post(
-          "https://proximity-service-bk-production.up.railway.app/putData",
-          {
-            name: name,
-            socketId: mySocketId,
-          }
-        );
-      } catch (error) {
-        console.log("error putting the data", error);
-      }
-    };
-    putData();
-  }, []);
+  // useEffect(() => {
+  //   const putData = async () => {
+  //     try {
+  //       await axios.post(
+  //         "https://proximity-service-bk-production.up.railway.app/putData",
+  //         {
+  //           name: name,
+  //           socketId: mySocketId,
+  //         }
+  //       );
+  //       console.log("Data submitted successfully");
+  //     } catch (error) {
+  //       console.log("error putting the data", error);
+  //     }
+  //   };
+  //   putData();
+  // }, []);
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await axios.post(
-          "https://proximity-service-bk-production.up.railway.app/getData",
-          {
-            socketId: markerData.socket_id,
-          }
-        );
-        _setOtherName(response.data);
-      } catch (error) {
-        console.log("error putting the data", error);
-      }
-    };
-    getData();
-  });
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       const response = await axios.post(
+  //         "https://proximity-service-bk-production.up.railway.app/getData",
+  //         {
+  //           socketId: markerData.socket_id,
+  //         }
+  //       );
+  //       _setOtherName(response.data);
+  //       console.log("got data successfully");
+  //     } catch (error) {
+  //       console.log("error putting the data", error);
+  //     }
+  //   };
+  //   getData();
+  // });
 
   const UpdateMapCenter = ({ location }: { location: Location }) => {
     const map = useMap();
@@ -246,7 +248,7 @@ const Map = () => {
           myLocation={location}
           otherLocation={markerData}
           handleRoute={handleRoute}
-          name={_otherName}
+          // name={_otherName}
         />
       </div>
     </div>
