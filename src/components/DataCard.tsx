@@ -39,27 +39,29 @@ const DataCard = ({
         </div>
       ) : (
         <div className="flex">
-          <h3 className="text-sm md:text-xl font-semibold text-gray-800 mb-2">
-            {title}
-          </h3>
-          <ul className="text-gray-700">
-            <li>
-              <span className="text-sm md:font-medium">UserId:</span>{" "}
-              {otherLocation?.socket_id ?? "N/A"}
-            </li>
-            <li>
-              <span className="text-sm md:font-medium">Latitude:</span>{" "}
-              {otherLocation?.latitude ?? "N/A"}
-            </li>
-            <li>
-              <span className="text-sm md:font-medium">Longitude:</span>{" "}
-              {otherLocation?.longitude ?? "N/A"}
-            </li>
-            <li>
-              <span className="text-sm md:font-medium">Address:</span>{" "}
-              {address ?? "N/A"}
-            </li>
-          </ul>
+          <div>
+            <h3 className="text-sm md:text-xl font-semibold text-gray-800 mb-2">
+              {title}
+            </h3>
+            <ul className="text-gray-700">
+              <li>
+                <span className="text-sm md:font-medium">UserId:</span>{" "}
+                {otherLocation?.socket_id ?? "N/A"}
+              </li>
+              <li>
+                <span className="text-sm md:font-medium">Latitude:</span>{" "}
+                {otherLocation?.latitude ?? "N/A"}
+              </li>
+              <li>
+                <span className="text-sm md:font-medium">Longitude:</span>{" "}
+                {otherLocation?.longitude ?? "N/A"}
+              </li>
+              <li>
+                <span className="text-sm md:font-medium">Address:</span>{" "}
+                {address ?? "N/A"}
+              </li>
+            </ul>
+          </div>
           <button
             className="border border-black text-white bg-black p-1 rounded-lg mt-2"
             onClick={handleRoute}
