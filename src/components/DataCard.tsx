@@ -7,6 +7,7 @@ const DataCard = ({
   myLocation,
   otherLocation,
   handleRoute,
+  name,
 }: {
   isUser: boolean;
   title: string;
@@ -14,6 +15,7 @@ const DataCard = ({
   myLocation?: Location;
   otherLocation?: MarkerData;
   handleRoute: () => void;
+  name?: string;
 }) => {
   return (
     <div className="bg-white shadow-lg rounded-lg p-4 mb-4">
@@ -47,6 +49,10 @@ const DataCard = ({
               <li>
                 <span className="text-sm md:font-medium">UserId:</span>{" "}
                 {otherLocation?.socket_id ?? "N/A"}
+              </li>
+              <li>
+                <span className="text-sm md:font-medium">Name:</span>{" "}
+                {name ?? "N/A"}
               </li>
               <li>
                 <span className="text-sm md:font-medium">Latitude:</span>{" "}

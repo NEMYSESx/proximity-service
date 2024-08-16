@@ -13,4 +13,5 @@ export interface RoutingProps {
 }
 export interface SideBarProps extends RoutingProps {
   handleRoute: () => void;
+  name: string;
 }

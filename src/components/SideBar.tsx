@@ -2,7 +2,12 @@ import useAddress from "../hooks/useAddress";
 import { SideBarProps } from "../types/location";
 import DataCard from "./DataCard";
 
-const SideBar = ({ myLocation, otherLocation, handleRoute }: SideBarProps) => {
+const SideBar = ({
+  myLocation,
+  otherLocation,
+  handleRoute,
+  name,
+}: SideBarProps) => {
   console.log(myLocation);
   console.log(otherLocation);
   const myAddress = useAddress(myLocation?.latitude, myLocation?.longitude);
@@ -26,6 +31,7 @@ const SideBar = ({ myLocation, otherLocation, handleRoute }: SideBarProps) => {
         address={otherAddress}
         otherLocation={otherLocation}
         handleRoute={handleRoute}
+        name={name}
       />
     </div>
   );
