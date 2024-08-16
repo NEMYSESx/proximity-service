@@ -75,7 +75,7 @@ const Map = () => {
       };
       getData();
     }
-  });
+  }, [_markerClicked, markerData.socket_id]);
 
   const UpdateMapCenter = ({ location }: { location: Location }) => {
     const map = useMap();
@@ -148,8 +148,6 @@ const Map = () => {
     console.log(value);
     return !(socketId === mySocketId);
   });
-  console.log("Filterd", filteredLocations);
-  console.log("myLocation", location);
 
   const createCustomIcon = (direction: number) => {
     return new DivIcon({
