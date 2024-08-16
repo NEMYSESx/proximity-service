@@ -10,7 +10,14 @@ import "leaflet/dist/leaflet.css";
 import SideBar from "../components/SideBar";
 import { Icon } from "leaflet";
 
-import { MapContainer, TileLayer, useMap, Marker, Circle } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  useMap,
+  Marker,
+  Circle,
+  useMapEvents,
+} from "react-leaflet";
 import Routing from "./Routing";
 const Map = () => {
   const { _location, sendLocation, sendOrientation, _orientation, mySocketId } =
@@ -27,17 +34,28 @@ const Map = () => {
   });
   const [markerClicked, setMarkerClicked] = useState<boolean>(false);
   const [showRouting, setShowRouting] = useState<boolean>(false);
-  const [mapMoved, setMapMoved] = useState<boolean>(false);
+  const [mapCenter, setMapCenter] = useState(true);
 
-  function UpdateMapCenter({ location }: { location: Location }) {
+  const UpdateMapCenter = () => {
     const map = useMap();
+    useEffect(() => {
+      if (mapCenter && location.latitude && location.longitude) {
+        map.setView([location.latitude, location.longitude], map.getZoom());
+      }
+    }, [map]);
 
-    if (location.latitude && location.longitude && !mapMoved) {
-      map.setView([location.latitude, location.longitude], map.getZoom());
-    }
+    // Use map events to detect when the user moves the map
+    useMapEvents({
+      dragstart: () => {
+        setMapCenter(false);
+      },
+      zoomstart: () => {
+        setMapCenter(false);
+      },
+    });
 
     return null;
-  }
+  };
 
   useEffect(() => {
     const handleDebouncedUpdate = debounce((position: GeolocationPosition) => {
@@ -78,11 +96,6 @@ const Map = () => {
       window.removeEventListener("deviceorientation", handleOrientation);
     };
   }, [sendOrientation]);
-
-  const map = useMap();
-  map.on("dragstart", () => {
-    setMapMoved(true);
-  });
 
   const filteredLocations = Object.values(_location).filter((value, index) => {
     // const lat = parseFloat(value.lat);
