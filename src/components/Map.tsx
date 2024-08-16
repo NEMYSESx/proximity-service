@@ -34,7 +34,7 @@ const Map = () => {
       if (location.latitude && location.longitude) {
         map.setView([location.latitude, location.longitude], map.getZoom());
       }
-    }, [location.latitude, location.longitude, map]);
+    }, []);
 
     return null;
   }
