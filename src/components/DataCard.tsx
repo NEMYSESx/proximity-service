@@ -38,7 +38,7 @@ const DataCard = ({
           </ul>
         </div>
       ) : (
-        <div>
+        <div className="flex">
           <h3 className="text-sm md:text-xl font-semibold text-gray-800 mb-2">
             {title}
           </h3>
