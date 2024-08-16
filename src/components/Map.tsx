@@ -27,11 +27,12 @@ const Map = () => {
   });
   const [markerClicked, setMarkerClicked] = useState<boolean>(false);
   const [showRouting, setShowRouting] = useState<boolean>(false);
+  const [mapMoved, setMapMoved] = useState<boolean>(false);
 
   function UpdateMapCenter({ location }: { location: Location }) {
     const map = useMap();
 
-    if (location.latitude && location.longitude) {
+    if (location.latitude && location.longitude && !mapMoved) {
       map.setView([location.latitude, location.longitude], map.getZoom());
     }
 
@@ -77,6 +78,11 @@ const Map = () => {
       window.removeEventListener("deviceorientation", handleOrientation);
     };
   }, [sendOrientation]);
+
+  const map = useMap();
+  map.on("dragstart", () => {
+    setMapMoved(true);
+  });
 
   const filteredLocations = Object.values(_location).filter((value, index) => {
     // const lat = parseFloat(value.lat);
