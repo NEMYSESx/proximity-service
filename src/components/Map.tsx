@@ -41,7 +41,7 @@ const Map = () => {
   const [showRouting, setShowRouting] = useState<boolean>(false);
   const [mapCenter, setMapCenter] = useState(true);
   const [_markerClicked, _setMarkerClicked] = useState(false);
-
+  console.log(name);
   useEffect(() => {
     const putData = async () => {
       try {
@@ -68,7 +68,7 @@ const Map = () => {
             }
           );
           _setOtherName(response.data);
-          console.log("got data successfully");
+          console.log("got data successfully", response.data);
         } catch (error) {
           console.log("error putting the data", error);
         }
