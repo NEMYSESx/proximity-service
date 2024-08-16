@@ -38,7 +38,7 @@ const DataCard = ({
           </ul>
         </div>
       ) : (
-        <div className="flex items-end">
+        <div className="md:block flex items-end">
           <div>
             <h3 className="text-sm md:text-xl font-semibold text-gray-800 mb-2">
               {title}
@@ -63,7 +63,7 @@ const DataCard = ({
             </ul>
           </div>
           <button
-            className="border border-black text-white bg-black p-1 rounded-lg mt-2 h-10"
+            className="border border-black text-white bg-black p-1 rounded-lg mt-2 h-10 ml-24"
             onClick={handleRoute}
           >
             Route
