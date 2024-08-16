@@ -45,14 +45,16 @@ const Map = () => {
   console.log(name);
   useEffect(() => {
     const putData = async () => {
-      try {
-        await axios.post("https://proximitydata.onrender.com/putData", {
-          name: name,
-          socketId: mySocketId,
-        });
-        console.log("Data submitted successfully", name, mySocketId);
-      } catch (error) {
-        console.log("error putting the data", error);
+      if (mySocketId && name) {
+        try {
+          await axios.post("https://proximitydata.onrender.com/putData", {
+            name: name,
+            socketId: mySocketId,
+          });
+          console.log("Data submitted successfully", name, mySocketId);
+        } catch (error) {
+          console.log("error putting the data", error);
+        }
       }
     };
     putData();
