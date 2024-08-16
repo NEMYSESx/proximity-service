@@ -63,7 +63,7 @@ const DataCard = ({
             </ul>
           </div>
           <button
-            className="border border-black text-white bg-black p-1 rounded-lg mt-2 h-10 ml-24"
+            className="border border-black text-white bg-black p-1 rounded-lg mt-2 h-10 ml-24 md:ml-0"
             onClick={handleRoute}
           >
             Route
